@@ -1,0 +1,377 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Trang chủ{% endblock title %}
+{% block head %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exceljs@4.3.0/dist/exceljs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+    <script src="{% static "js/chart.js" %}"></script>
+{% endblock head %}
+
+{% block content %}
+    <content class="content">
+        <section class="content__1">
+            <div class="inner">
+                <div class="content__1__header btn__content dflex">
+                    <span>Trạng thái hệ thống</span>
+                </div>
+                <div class="content__1__inner dflex dflex__ct dflex__ct__ct">
+                    <div class="content__1__ttht dflex dflex__ct dflex__ct__sb dflex__column">
+                        <h2>Trạng thái hệ thống</h2>
+                        <div class="content__list dflex dflex__ct dflex__ct__sa">
+                            <div class="content__item dflex dflex__ct dflex__ct__ct dflex__column">
+                                <span class="content__item__title">
+                                    Dung lượng ắc quy
+                                </span>
+                                <img src="{% static "img/acquy.png" %}" alt="">
+                                <div class="btn__content__display">
+                                    <p>0<span> %</span></p>
+                                </div>
+                            </div>
+                            <div class="content__item dflex dflex__ct dflex__ct__ct dflex__column">
+                                <span class="content__item__title">
+                                    Công suất thu
+                                </span>
+                                <img src="{% static "img/solar.png" %}" alt="">
+                                <div class="btn__content__display">
+                                    <p>{{epvToday}}<span> kW</span></p>
+                                </div>
+                            </div>
+                            <div class="content__item dflex dflex__ct dflex__ct__ct dflex__column">
+                                <span class="content__item__title">
+                                    Công suất tiêu thụ
+                                </span>
+                                <img src="{% static "img/solar1.png" %}" alt="">
+                                <div class="btn__content__display">
+                                    <p>{{pacToUser}}<span> kW</span></p>
+                                </div>
+                            </div>
+                            <div class="content__item dflex dflex__ct dflex__ct__ct dflex__column">
+                                <span class="content__item__title">
+                                    Trạng thái ghép nối
+                                </span>
+                                <div class="btn__notice active">
+                                    <div class="btn__notice__inner">
+                                        <div class="notice__inner"></div>
+                                    </div>
+                                </div>
+                                <div class="btn__content__display auto active">
+                                    <p class="auto__on">Tự động</p>
+                                    <p class="auto__off">Thủ công</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content__1__ts dflex dflex__ct dflex__ct__sb dflex__column">
+                        <h2>Thông số thu được tháng {{MONTH}}</h2>
+                        <div class="content__list">
+                            <div class="content__item dflex dflex__ct dflex__ct__sb">
+                                <div class="content__ts_a dflex dflex__ct dflex__ct__fs dflex__column">
+                                    <span class="content__item__title">
+                                        Công suất thu được tháng {{MONTH}}
+                                    </span>
+                                    <div class="btn__content__display">
+                                        <p>{{eMonth}}<span> kW</span></p>
+                                    </div>
+                                </div>
+                                <img src="{% static "img/solar.png" %}" alt="">
+                            </div>
+                            <div class="content__item dflex dflex__ct dflex__ct__sb">
+                                <div class="content__ts_a dflex dflex__ct dflex__ct__fs dflex__column">
+                                    <span class="content__item__title">
+                                        Công suất tiêu thụ tháng {{MONTH}}
+                                    </span>
+                                    <div class="btn__content__display">
+                                        <p>{{total_pac_to_user}}<span> kW</span></p>
+                                    </div>
+                                </div>
+                                <img src="{% static "img/solar1.png" %}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content__2">
+            <div class="inner dflex dflex__ct dflex__ct__fs dflex__column">
+                <div class="content__1__header btn__content dflex">
+                    <span>Trạng thái hệ thống</span>
+                </div>
+                <div class="content__2__inner">
+                    <div class="content__2__item">
+                        <img src="{% static "img/line1.gif" %}" alt="">
+                        <div class="content__2__ts">
+                            <div class="content__2__ts__a">
+                                <p>Công suất</p>
+                                <div class="btn__content__display">
+                                    <p>99999999<span> kW</span></p>
+                                </div>
+                            </div>
+                            <div class="content__2__ts__a">
+                                <p>Điện áp</p>
+                                <div class="btn__content__display">
+                                    <p>99999999<span> kV</span></p>
+                                </div>
+                            </div>
+                            <div class="content__2__ts__a">
+                                <p>Dòng diện</p>
+                                <div class="btn__content__display">
+                                    <p>99999999<span> kA</span></p>
+                                </div>
+                            </div>
+                            <div class="content__2__ts__a">
+                                <p>PV</p>
+                                <div class="btn__content__display">
+                                    <p>99999999</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content__2__item">
+                        <img src="{% static "img/line2.gif" %}" alt="">
+                        <div class="content__2__ts">
+                            <div class="content__2__ts__a">
+                                <p>Công suất</p>
+                                <div class="btn__content__display">
+                                    <p>99999999<span> kW</span></p>
+                                </div>
+                            </div>
+                            <div class="content__2__ts__a">
+                                <p>Điện áp</p>
+                                <div class="btn__content__display">
+                                    <p>99999999<span> kV</span></p>
+                                </div>
+                            </div>
+                            <div class="content__2__ts__a">
+                                <p>Dòng diện</p>
+                                <div class="btn__content__display">
+                                    <p>99999999<span> kA</span></p>
+                                </div>
+                            </div>
+                            <div class="content__2__ts__a">
+                                <p>PV</p>
+                                <div class="btn__content__display">
+                                    <p>99999999</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content__2__item">
+                        <img src="{% static "img/line2.gif" %}" alt="">
+                        <div class="content__2__ts">
+                            <div class="content__2__ts__a">
+                                <p>Công suất</p>
+                                <div class="btn__content__display">
+                                    <p>99999999<span> kW</span></p>
+                                </div>
+                            </div>
+                            <div class="content__2__ts__a">
+                                <p>Điện áp</p>
+                                <div class="btn__content__display">
+                                    <p>99999999<span> kV</span></p>
+                                </div>
+                            </div>
+                            <div class="content__2__ts__a">
+                                <p>Dòng diện</p>
+                                <div class="btn__content__display">
+                                    <p>99999999<span> kA</span></p>
+                                </div>
+                            </div>
+                            <div class="content__2__ts__a">
+                                <p>PV</p>
+                                <div class="btn__content__display">
+                                    <p>99999999</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content__3">
+            <div class="inner">
+                <div class="content__1__header btn__content dflex">
+                    <span>Biểu đồ thống kê</span>
+                </div>
+                <div class="qchart">
+                    <div class="col-lg-11">
+                        <div class="card">
+                            <div class="card-body">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="false">Ngày</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Tháng</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="true">Năm</button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content pt-2" id="myTabContent">
+                                    <div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <canvas id="dayChart" width="820" height="150"></canvas>
+                                    </div>
+                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                        <canvas id="monthChart" width="820" height="150"></canvas>
+                                    </div>
+                                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                        <canvas id="yearChart" width="820" height="150"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    // Dữ liệu trả về từ API của bạn
+                    const dayData = JSON.parse('{{ inv_energyDay_data|escapejs|safe }}');
+                    const monthData = JSON.parse('{{ inv_energyMonth_data|escapejs|safe }}');
+                    const yearData = JSON.parse('{{ inv_energyYear_data|escapejs|safe }}');
+            
+                    // Tạo một mảng chuỗi thời gian từ 00:00 đến 23:55 cách nhau 5 phút
+                    const timeLabels = [];
+                    let hour = 0;
+                    let minute = 0;
+            
+                    for (let i = 0; i < 288; i++) {
+                        let hourStr = hour.toString().padStart(2, '0');
+                        let minuteStr = minute.toString().padStart(2, '0');
+                        timeLabels.push(`${hourStr}:${minuteStr}`);
+            
+                        console.log(`${hourStr}:${minuteStr}`)
+            
+                        minute += 5;
+                        if (minute === 60) {
+                            hour++;
+                            minute = 0;
+                        }
+                    }
+            
+                    // Tạo dữ liệu cho biểu đồ
+                    const chartDayData = {
+                        labels: timeLabels,
+                        datasets: [{
+                            label: 'Công suất tiêu thu theo ngày',
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1,
+                            data: dayData
+                        }]
+                    };
+                    const chartMonthData = {
+                        labels: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+                        datasets: [{
+                            label: 'Công suất tiêu thu theo tháng',
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1,
+                            data: monthData
+                        }]
+                    };
+
+                    const today = new Date()
+                    let lbYear = today.getFullYear() 
+
+                    const chartYearData = {
+                        labels: [lbYear-4, lbYear-3, lbYear-2, lbYear-1, lbYear],
+                        datasets: [{
+                            label: 'Công suất tiêu thu theo tháng',
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1,
+                            data: yearData
+                        }]
+                    };
+            
+                    // Sau khi tạo dữ liệu cho biểu đồ
+            
+                    // Lấy thẻ canvas
+                    const ctxDay = document.getElementById('dayChart').getContext('2d');
+                    const ctxMonth = document.getElementById('monthChart').getContext('2d');
+                    const ctxYear = document.getElementById('yearChart').getContext('2d');
+                    // Tạo biểu đồ
+                    const dayChart = new Chart(ctxDay, {
+                        type: 'line',
+                        data: chartDayData,
+                        options: {
+                            responsive: true,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: false
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                    const monthChart = new Chart(ctxMonth, {
+                        type: 'bar',
+                        data: chartMonthData,
+                        options: {
+                            responsive: true,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: false
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                    const yearChart = new Chart(ctxYear, {
+                        type: 'bar',
+                        data: chartYearData,
+                        options: {
+                            responsive: true,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: false
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                </script>
+            </div>
+            <button onclick="exportToExcel()">Xuất dữ liệu thành Excel</button>
+        </section>
+    </content>
+    <script>
+        function exportToExcel() {
+            var chartData = myChart.data.datasets;
+            var excelData = [];
+
+            // Tiêu đề cho các cột
+            var headerRow = ['Tháng', 'Công suất thu được', 'Công suất tiêu thụ'];
+            excelData.push(headerRow);
+
+            for (var i = 0; i < chartData[0].data.length; i++) {
+                var month = data.labels[i];
+                var revenue = chartData[0].data[i];
+                var consumption = chartData[1].data[i];
+
+                var rowData = [month, revenue, consumption];
+                excelData.push(rowData);
+            }
+
+            // Sử dụng thư viện xlsx để tạo một tệp Excel
+            var worksheet = XLSX.utils.aoa_to_sheet(excelData);
+            var newWorkbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(newWorkbook, worksheet, 'Biểu đồ Data');
+
+            // Tạo một tệp Excel
+            if(chartData[0].data.length <= 12) {
+                XLSX.writeFile(newWorkbook, 'Bieu_do_nam.xlsx');
+            }
+            else if(chartData[0].data.length > 12 && chartData[0].data.length < 32) {
+                XLSX.writeFile(newWorkbook, 'Bieu_do_thang.xlsx');
+            }
+        }
+    </script>
+{% endblock content %}

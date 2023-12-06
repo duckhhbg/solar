@@ -1,0 +1,208 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {% block title %}{% endblock title %} </title>
+    {% block head %}{% endblock head %}
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+    <script src="{% static "js/common.js" %}"></script>
+    <link rel="stylesheet" href="{% static "css/styte.css" %}">
+    <link rel="stylesheet" href="{% static "css/boostrap.css" %}">
+</head>
+<body>
+	{% if user.is_authenticated %}
+		{% comment %} <script>
+			// Lấy CSRF token từ cookie
+			function getCSRFToken() {
+				var cookieValue = null;
+				if (document.cookie && document.cookie !== '') {
+					var cookies = document.cookie.split(';');
+					for (var i = 0; i < cookies.length; i++) {
+						var cookie = cookies[i].trim();
+						// Tìm và lấy CSRF token từ cookie
+						if (cookie.substring(0, 'csrftoken'.length + 1) === 'csrftoken=') {
+							cookieValue = decodeURIComponent(cookie.substring('csrftoken'.length + 1));
+							break;
+						}
+					}
+				}
+				return cookieValue;
+			}
+			$(document).ready(function () {
+				// Chuẩn bị dữ liệu để gửi
+				var dataToSend = {
+					data: '{{user.username}}'
+				};
+				$.ajax({
+					type: 'POST',
+					url: "{% url 'BASE' %}",
+					data: dataToSend,
+					dataType: 'json',
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader("X-CSRFToken", getCSRFToken());
+					},
+					// success: function (response) {
+					// 	console.log("Thành công");
+					// },
+					// error: function (error) {
+					// 	console.log("Lỗi gì đó rồi");
+					// }
+				});
+			});
+		</script> {% endcomment %}
+		{% comment %} 
+		{% for filter in filter %}
+			---> {{filter.userName}}
+		{% endfor %} {% endcomment %}
+
+		
+		{% comment %} <h2>{{user.username}}</h2> {% endcomment %}
+		
+
+
+		<header class="header dflex dflex__ct dflex__ct__ct">
+			<div class="header__logo ">
+				<a href="{% url 'index_HTML' %}" class="dflex dflex__ct dflex__ct__ct btn btn__nav__header" >
+					<img class="logo__header" src="{% static "img/logo.png" %}" alt="">
+					<span class="header__logo__title dflex dflex__ct dflex__column dflex__ct__ct">
+						<span class="title__f18">
+							CTD-TNUT
+						</span>
+						<span class="title__f12 text__ct">
+							Trung tâm nghiên cứu, sáng tạo và phát triển công nghệ
+						</span>
+					</span>
+				</a>
+			</div>
+			<div class="header__nav dflex dflex__ct dflex__ct__ct dflex__column">
+				<div class="header__title dflex dflex__ct dflex__ct__ct dflex__column btn btn__nav__header">
+					<h2 class="text__ct">HỆ THỐNG ĐIỀU KHIỂN TÁI CẤU TRÚC PIN MẶT TRỜI</h2>
+				</div>
+				<nav class="header__nav__list dflex__ct dflex__ct__ct">
+					<div class="dflex dflex__ct dflex__ct__ct">
+						<div class="header__nav__item">
+							<a href="{% url 'index_HTML' %}" class="btn btn__nav__header btn__nav__item dflex dflex__ct__ct">
+								Thông tin hệ thống
+							</a>
+						</div>
+						<div class="header__nav__item">
+							<a href="{% url 'solars_HTML' %}" class="btn btn__nav__header btn__nav__item dflex dflex__ct__ct">
+								Thông tin tấm pin
+							</a>
+						</div>
+						<div class="header__nav__item" id="config_1">
+							<a href="{% url 'configuration_HTML' %}" class="btn btn__nav__header btn__nav__item dflex dflex__ct__ct">
+								Cấu hình
+							</a>
+						</div>
+						<div class="header__nav__item" id="manager_1">
+							<a href="{% url 'manager_HTML' %}" class="btn btn__nav__header btn__nav__item dflex dflex__ct__ct">
+								Quản lý
+							</a>
+						</div>
+						<div class="header__nav__item">
+							<a href="{% url 'changepass_HTML' %}" class="btn btn__nav__header btn__nav__item dflex dflex__ct__ct">
+								Đổi mật khẩu
+							</a>
+						</div>
+						<div class="header__nav__item">
+							<a href="{% url 'Logout' %}" class="btn btn__nav__header btn__nav__item dflex dflex__ct__ct btn__nav__lo">
+								Đăng xuất
+							</a>
+						</div>
+					</div>
+				</nav>
+				<div class="header__menu">
+					<div class="header__menu__inner dflex dflex__ct dflex__ct__ct">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+				<nav class="header__nav__sp">
+					<div class="header__nav__sp__inner dflex dflex__ct dflex__ct__sa dflex__column">
+						<div class="header__nav__item__sp">
+							<a href="{% url 'index_HTML' %}" class="btn btn__nav__header btn__nav__item dflex dflex__ct__ct">
+								Thông tin hệ thống
+							</a>
+						</div>
+						<div class="header__nav__item__sp">
+							<a href="{% url 'solars_HTML' %}" class="btn btn__nav__header btn__nav__item dflex dflex__ct__ct">
+								Thông tin các tấm pin
+							</a>
+						</div>
+						<div class="header__nav__item__sp" id="config_2">
+							<a href="{% url 'configuration_HTML' %}" class="btn btn__nav__header btn__nav__item dflex dflex__ct__ct">
+								Cấu hình
+							</a>
+						</div>
+						<div class="header__nav__item__sp" id="manager_2">
+							<a href="{% url 'manager_HTML' %}" class="btn btn__nav__header btn__nav__item dflex dflex__ct__ct">
+								Quản lý
+							</a>
+						</div>
+						<div class="header__nav__item__sp">
+							<a href="{% url 'changepass_HTML' %}" class="btn btn__nav__header btn__nav__item dflex dflex__ct__ct">
+								Đổi mật khẩu
+							</a>
+						</div>
+						<div class="header__nav__item__sp">
+							<a href="{% url 'Logout' %}" class="btn btn__nav__header btn__nav__item dflex dflex__ct__ct btn__nav__lo">
+								Đăng xuất
+							</a>
+						</div>
+						<div class="header__logo__sp">
+							<a href="" class="dflex dflex__ct dflex__ct__ct btn btn__nav__header" >
+								<img class="logo__header" src="{% static "img/logo.png" %}" alt="">
+								<span class="header__logo__title dflex dflex__ct dflex__column dflex__ct__ct">
+									<span class="title__f18">
+										CTD-TNUT
+									</span>
+									<span class="title__f12 text__ct">
+										Trung tâm nghiên cứu, sáng tạo và phát triển công nghệ
+									</span>
+								</span>
+							</a>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</header>
+		<script>
+			var manager_1 = document.getElementById("manager_1"); {% comment %} Quản lý {% endcomment %}
+			var manager_2 = document.getElementById("manager_2"); {% comment %} Quản lý {% endcomment %}
+			var config_1 = document.getElementById("config_1"); {% comment %} Cấu hình {% endcomment %}
+			var config_2 = document.getElementById("config_2"); {% comment %} Cấu hình {% endcomment %}
+			{% for item in filter %}
+				{% if item.Jurisdiction == "Giám sát" %}
+					{% comment %} ==== Quyền giám sát bỏ quản lý, bỏ cấu hình ==== {% endcomment %}
+					console.log("Quyền giám sát")
+					config_1.style.display = "none";
+					config_2.style.display = "none";
+					manager_1.style.display = "none";
+					manager_2.style.display = "none";
+				{% elif item.Jurisdiction == "Quản trị" %}
+					{% comment %} ==== Quyền quản trị full quyền ==== {% endcomment %}
+					console.log("Quyền quản trị")
+					config_1.style.display = "block";
+					config_2.style.display = "block";
+					manager_1.style.display = "block";
+					manager_2.style.display = "block";
+				{% elif item.Jurisdiction == "Điều khiển" %}
+					{% comment %} ==== Quyền quản trị bỏ quản lý ==== {% endcomment %}
+					console.log("Quyền điều khiển")
+					manager_1.style.display = "none";
+					manager_2.style.display = "none";
+					config_1.style.display = "block";
+					config_2.style.display = "block";
+				{% endif %}
+			{% endfor %}
+		</script>
+		{% block content %}{% endblock content %}
+	{% else %}
+		{% include "Not_Login.html" %}
+	{% endif %}
+</body>
+</html>
